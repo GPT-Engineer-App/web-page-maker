@@ -1,15 +1,28 @@
-// Update this page (the content is just a fallback if you fail and example)
+import React, { useEffect } from "react";
+import "./spotlight.css";
 
 const Index = () => {
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const spotlight = document.querySelector(".spotlight");
+      const { clientX, clientY } = e;
+      spotlight.style.left = `${clientX}px`;
+      spotlight.style.top = `${clientY}px`;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      {/* Update with components here - default to put new layout sections as separate components in the components folder, and import them here */}
-      <div>
-        <h1 className="text-3xl text-center">Your Blank Canvas</h1>
-        <p className="text-center">
-          Chat with the agent to start making edits.
-        </p>
-      </div>
+    <div className="h-screen w-screen flex items-center justify-center relative overflow-hidden">
+      <div className="spotlight"></div>
+      <h1 className="text-6xl text-center text-white relative z-10">
+        Welcome to the Spotlight Effect
+      </h1>
     </div>
   );
 };
